@@ -1,10 +1,6 @@
 # Ecommerce Analytics Pipeline  
 
-![Python](https://img.shields.io/badge/Python-3.9-blue?logo=python)  
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql)  
-![Airflow](https://img.shields.io/badge/Apache-Airflow-darkblue?logo=apacheairflow)  
-![Power BI](https://img.shields.io/badge/PowerBI-Dashboards-yellow?logo=powerbi)  
-![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram)  
+![Python](https://img.shields.io/badge/Python-3.9-blue?logo=python)  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql)  ![Airflow](https://img.shields.io/badge/Apache-Airflow-darkblue?logo=apacheairflow)  ![Power BI](https://img.shields.io/badge/PowerBI-Dashboards-yellow?logo=powerbi)  ![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram)  
 
 **End-to-end аналитическая платформа для онлайн-магазина.**  
 Проект охватывает полный цикл работы с данными - от генерации и хранения до визуализации, алертов и автоматической отчетности.  

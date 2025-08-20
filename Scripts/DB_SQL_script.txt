@@ -1,0 +1,81 @@
+--Таблица покупателей
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    city VARCHAR(100) NOT NULL
+);
+
+--Таблица брендов
+CREATE TABLE brands (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+--Таблица категорий
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+--Таблица товаров
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    category_id INT REFERENCES categories(id),
+    brand_id INT REFERENCES brands(id),
+    price NUMERIC(10, 2) NOT NULL
+);
+
+--Таблица просмотров товаров
+CREATE TABLE views (
+    id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(id),
+    product_id INT REFERENCES products(id),
+    view_timestamp TIMESTAMP NOT NULL
+);
+
+--Таблица заказов
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(id),
+    order_timestamp TIMESTAMP NOT NULL
+);
+
+--Таблица позиций в заказе
+CREATE TABLE order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES orders(id),
+    product_id INT REFERENCES products(id),
+    quantity INT NOT NULL CHECK (quantity > 0),
+    price_at_purchase NUMERIC(10, 2) NOT NULL
+);
+
+--Таблица логов отчетов
+CREATE TABLE report_logs (
+    id SERIAL PRIMARY KEY,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    file_path TEXT NOT NULL,
+    generated_at TIMESTAMP DEFAULT now()
+);
+
+--Таблица логов алертов
+CREATE TABLE alert_logs (
+    id SERIAL PRIMARY KEY,
+    alert_date DATE NOT NULL,
+    alert_type VARCHAR(50) NOT NULL,
+    alert_message TEXT NOT NULL,
+    value NUMERIC,
+    threshold NUMERIC,
+    created_at TIMESTAMP DEFAULT now()
+);
+
+--Представление всей активности покупателей
+CREATE VIEW all_activity AS
+  SELECT customer_id, view_timestamp::date AS activity_date
+  FROM views
+  UNION
+  SELECT customer_id, order_timestamp::date AS activity_date
+  FROM orders
